@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -141,9 +140,6 @@ const Index = () => {
             </Badge>
             <Badge variant="outline" className="border-orange-500/50 text-orange-400">
               CLASSIFIED
-            </Badge>
-            <Badge variant="outline" className="border-purple-500/50 text-purple-400">
-              DARPA-GRADE
             </Badge>
           </div>
         </div>
