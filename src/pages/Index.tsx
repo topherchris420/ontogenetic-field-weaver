@@ -37,10 +37,10 @@ const Index = () => {
   useSystemStatusUpdater(setSystemStatus);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-modern relative overflow-hidden">
       <QuantumBackground />
       
-      <div className="relative z-10 p-4">
+      <div className="relative z-10 p-6 max-w-7xl mx-auto">
         <HeaderSection />
         
         <SystemStatusBar
