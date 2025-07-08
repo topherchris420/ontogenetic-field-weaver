@@ -11,6 +11,9 @@ import NeuroSymbolicParser from '@/components/NeuroSymbolicParser';
 import ChronoTopologicalCore from '@/components/ChronoTopologicalCore';
 import ThreatModelingInterface from '@/components/ThreatModelingInterface';
 import SecureCommandLayer from '@/components/SecureCommandLayer';
+import QuantumFieldVisualizer from '@/components/QuantumFieldVisualizer';
+import ConsciousnessMapper from '@/components/ConsciousnessMapper';
+import TemporalManipulator from '@/components/TemporalManipulator';
 
 interface MainInterfaceGridProps {
   // Input and processing props
@@ -54,7 +57,29 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
 }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-      {/* Row 1: Core Input and Processing */}
+      {/* Row 1: Enhanced Visualization Components */}
+      <div className="col-span-1 lg:col-span-2">
+        <QuantumFieldVisualizer
+          resonanceField={resonanceField}
+          ontologicalSeeds={ontologicalSeeds}
+        />
+      </div>
+
+      <div className="col-span-1">
+        <ConsciousnessMapper
+          ontologicalSeeds={ontologicalSeeds}
+          resonanceField={resonanceField}
+        />
+      </div>
+
+      <div className="col-span-1">
+        <TemporalManipulator
+          temporalGeometry={temporalGeometry}
+          onTemporalShift={(shift) => console.log('Temporal shift:', shift)}
+        />
+      </div>
+
+      {/* Row 2: Core Processing */}
       <div className="col-span-1">
         <NeuroSymbolicParser
           onFieldDeformation={handleFieldDeformation}
@@ -85,7 +110,7 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      {/* Row 2: Enhanced Visualizations */}
+      {/* Row 3: Advanced Analysis */}
       <div className="col-span-1 lg:col-span-2">
         <TensorLattice
           seeds={ontologicalSeeds}
@@ -101,7 +126,7 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      {/* Row 3: Legacy Systems Integration */}
+      {/* Row 4: Legacy Interface Components */}
       <div className="col-span-1">
         <ConsciousnessInterface
           onInputProcess={processOntologicalInput}
@@ -132,7 +157,7 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      {/* Row 4: Export and Monitoring */}
+      {/* Row 5: Export System */}
       <div className="col-span-1 lg:col-span-4">
         <ExportSystem
           seeds={ontologicalSeeds}
