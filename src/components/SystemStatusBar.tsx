@@ -21,33 +21,53 @@ const SystemStatusBar: React.FC<SystemStatusBarProps> = ({
   detectedThreats
 }) => {
   return (
-    <div className="mb-6 bg-black/40 backdrop-blur-sm rounded-lg p-4 border border-purple-500/40">
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 text-sm">
-        <div>
-          <span className="text-gray-400">Resonance Field:</span>
-          <Progress value={resonanceField} className="mt-1" />
+    <div className="mb-6 glass-morphism rounded-xl p-4 border glow-effect">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 text-sm">
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground font-medium">Resonance Field</span>
+            <span className="text-primary font-mono text-xs">{resonanceField.toFixed(1)}%</span>
+          </div>
+          <Progress value={resonanceField} className="h-2" />
         </div>
-        <div>
-          <span className="text-gray-400">Chrono-Sync:</span>
-          <span className="ml-2 text-orange-400">{systemStatus.chronoSync}%</span>
+        
+        <div className="space-y-1">
+          <span className="text-muted-foreground font-medium block">Chrono-Sync</span>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${systemStatus.chronoSync > 80 ? 'bg-green-400 animate-glow' : 'bg-yellow-400'}`}></div>
+            <span className="text-orange-400 font-mono">{systemStatus.chronoSync}%</span>
+          </div>
         </div>
-        <div>
-          <span className="text-gray-400">Threat Level:</span>
-          <span className={`ml-2 ${systemStatus.threatLevel > 50 ? 'text-red-400' : 'text-green-400'}`}>
-            {systemStatus.threatLevel.toFixed(0)}%
-          </span>
+        
+        <div className="space-y-1">
+          <span className="text-muted-foreground font-medium block">Threat Level</span>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${systemStatus.threatLevel > 50 ? 'bg-red-400 animate-glow' : 'bg-green-400'}`}></div>
+            <span className={`font-mono ${systemStatus.threatLevel > 50 ? 'text-red-400' : 'text-green-400'}`}>
+              {systemStatus.threatLevel.toFixed(0)}%
+            </span>
+          </div>
         </div>
-        <div>
-          <span className="text-gray-400">Field Stability:</span>
-          <span className="ml-2 text-cyan-400">{systemStatus.fieldStability}%</span>
+        
+        <div className="space-y-1">
+          <span className="text-muted-foreground font-medium block">Field Stability</span>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-glow"></div>
+            <span className="text-cyan-400 font-mono">{systemStatus.fieldStability}%</span>
+          </div>
         </div>
-        <div>
-          <span className="text-gray-400">Quantum State:</span>
-          <span className="ml-2 text-purple-400 capitalize">{quantumState}</span>
+        
+        <div className="space-y-1">
+          <span className="text-muted-foreground font-medium block">Quantum State</span>
+          <span className="text-purple-400 capitalize font-mono shimmer-effect">{quantumState}</span>
         </div>
-        <div>
-          <span className="text-gray-400">Active Threats:</span>
-          <span className="ml-2 text-red-400">{detectedThreats.length}</span>
+        
+        <div className="space-y-1">
+          <span className="text-muted-foreground font-medium block">Active Threats</span>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${detectedThreats.length > 0 ? 'bg-red-400 animate-glow' : 'bg-green-400'}`}></div>
+            <span className="text-red-400 font-mono font-bold">{detectedThreats.length}</span>
+          </div>
         </div>
       </div>
     </div>
