@@ -1,5 +1,5 @@
 
-# Vers3Dynamics: Cognitive-Field Simulation Engine
+# Vers3Dynamics: Cognitive-Field Engine
 
 A full-spectrum predictive operations platform that integrates Dynamic Resonance Rooting (DRR), chrono-spatial displacement modeling, and adaptive geometric reconfiguration to detect, model, and manipulate non-local phase structures across time, space, and symbolic logic.
 
