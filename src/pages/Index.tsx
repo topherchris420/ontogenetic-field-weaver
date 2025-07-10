@@ -40,15 +40,17 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-modern relative overflow-hidden">
       <QuantumBackground />
       
-      <div className="relative z-10 p-6 max-w-7xl mx-auto">
+      <div className="relative z-10 p-3 sm:p-4 md:p-6 max-w-7xl mx-auto">
         <HeaderSection />
         
-        <SystemStatusBar
-          resonanceField={resonanceField}
-          systemStatus={systemStatus}
-          quantumState={quantumState}
-          detectedThreats={detectedThreats}
-        />
+        <div className="mb-4 md:mb-6">
+          <SystemStatusBar
+            resonanceField={resonanceField}
+            systemStatus={systemStatus}
+            quantumState={quantumState}
+            detectedThreats={detectedThreats}
+          />
+        </div>
 
         <MainInterfaceGrid
           activeInput={activeInput}

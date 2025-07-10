@@ -96,6 +96,17 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
+    /* Mobile touch optimization */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Improve text readability on mobile */
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+      line-height: 1.5;
+    }
   }
 }
 
@@ -107,5 +118,44 @@ All colors MUST be HSL.
   
   .text-gradient-pink {
     @apply bg-gradient-to-r from-pink-500 via-magenta-500 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  /* Mobile-optimized animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+  }
+
+  /* Responsive canvas sizing */
+  canvas {
+    max-width: 100%;
+    height: auto;
+    touch-action: none; /* Prevent scroll interference */
+  }
+
+  /* Mobile-friendly interactive elements */
+  @media (max-width: 768px) {
+    .grid {
+      gap: 0.75rem;
+    }
+    
+    button, [role="button"] {
+      min-height: 44px; /* Apple's recommended touch target size */
+      min-width: 44px;
+    }
+
+    /* Improve slider usability on mobile */
+    [role="slider"] {
+      min-height: 44px;
+    }
+  }
+
+  /* Performance optimizations for mobile */
+  @media (max-width: 768px) {
+    * {
+      -webkit-transform: translateZ(0); /* Enable hardware acceleration */
+      backface-visibility: hidden;
+    }
   }
 }

@@ -14,6 +14,7 @@ import SecureCommandLayer from '@/components/SecureCommandLayer';
 import QuantumFieldVisualizer from '@/components/QuantumFieldVisualizer';
 import ConsciousnessMapper from '@/components/ConsciousnessMapper';
 import TemporalManipulator from '@/components/TemporalManipulator';
+import WormholePhysicsSimulator from '@/components/WormholePhysicsSimulator';
 
 interface MainInterfaceGridProps {
   // Input and processing props
@@ -56,9 +57,24 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
   setQuantumState
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-      {/* Row 1: Enhanced Visualization Components */}
-      <div className="col-span-1 lg:col-span-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+      {/* Row 1: New Wormhole Physics Simulator - Featured */}
+      <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+        <WormholePhysicsSimulator
+          resonanceField={resonanceField}
+          onStabilityChange={(stability) => console.log('Wormhole stability:', stability)}
+        />
+      </div>
+
+      <div className="col-span-1">
+        <TemporalManipulator
+          temporalGeometry={temporalGeometry}
+          onTemporalShift={(shift) => console.log('Temporal shift:', shift)}
+        />
+      </div>
+
+      {/* Row 2: Enhanced Visualization Components */}
+      <div className="col-span-1 sm:col-span-2">
         <QuantumFieldVisualizer
           resonanceField={resonanceField}
           ontologicalSeeds={ontologicalSeeds}
@@ -73,13 +89,13 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
       </div>
 
       <div className="col-span-1">
-        <TemporalManipulator
-          temporalGeometry={temporalGeometry}
-          onTemporalShift={(shift) => console.log('Temporal shift:', shift)}
+        <PhaseGenerator
+          quantumState={quantumState}
+          onPhaseShift={(newState) => setQuantumState(newState)}
         />
       </div>
 
-      {/* Row 2: Core Processing */}
+      {/* Row 3: Core Processing */}
       <div className="col-span-1">
         <NeuroSymbolicParser
           onFieldDeformation={handleFieldDeformation}
@@ -110,8 +126,8 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      {/* Row 3: Advanced Analysis */}
-      <div className="col-span-1 lg:col-span-2">
+      {/* Row 4: Advanced Analysis */}
+      <div className="col-span-1 sm:col-span-2">
         <TensorLattice
           seeds={ontologicalSeeds}
           temporalGeometry={temporalGeometry}
@@ -119,14 +135,14 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      <div className="col-span-1 lg:col-span-2">
+      <div className="col-span-1 sm:col-span-2">
         <RealityDivergenceMap
           seeds={ontologicalSeeds}
           temporalGeometry={temporalGeometry}
         />
       </div>
 
-      {/* Row 4: Legacy Interface Components */}
+      {/* Row 5: Legacy Interface Components */}
       <div className="col-span-1">
         <ConsciousnessInterface
           onInputProcess={processOntologicalInput}
@@ -150,15 +166,8 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         />
       </div>
 
-      <div className="col-span-1">
-        <PhaseGenerator
-          quantumState={quantumState}
-          onPhaseShift={(newState) => setQuantumState(newState)}
-        />
-      </div>
-
-      {/* Row 5: Export System */}
-      <div className="col-span-1 lg:col-span-4">
+      {/* Row 6: Export System - Full Width on Mobile */}
+      <div className="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4">
         <ExportSystem
           seeds={ontologicalSeeds}
           temporalGeometry={temporalGeometry}
