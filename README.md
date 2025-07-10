@@ -1,4 +1,3 @@
-
 # Vers3Dynamics: Cognitive-Field Engine
 
 A full-spectrum predictive operations platform that integrates Dynamic Resonance Rooting (DRR), chrono-spatial displacement modeling, and adaptive geometric reconfiguration to detect, model, and manipulate non-local phase structures across time, space, and symbolic logic.
@@ -217,11 +216,6 @@ We welcome contributors to the Vers3Dynamics project! Please read our contributi
 - [Temporal Manipulation](docs/temporal-manipulation.md)
 - [Mobile Components](docs/mobile-components.md)
 
-### Scientific Papers
-- "Wormhole Stabilization via Dynamic Resonance Rooting" (2024)
-- "Mobile Consciousness Analysis Systems" (2024)
-- "Quantum Field Theory Applications in Cognitive Computing" (2024)
-
 ## 🌟 Roadmap
 
 ### Version 2.0 (Q2 2024)
@@ -242,14 +236,6 @@ We welcome contributors to the Vers3Dynamics project! Please read our contributi
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## 🙏 Acknowledgments
-
-- Quantum Field Research Institute
-- Consciousness Studies Consortium
-- Temporal Dynamics Laboratory
-- Wormhole Physics Research Group
-- The Vers3Dynamics Research Team
-
 ---
 
 **Vers3Dynamics** - *Accelerating the convergence of consciousness and technology*
@@ -258,4 +244,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ---
 
-© 2024 Vers3Dynamics. All rights reserved. Patents pending.
+© 2024 Vers3Dynamics. All rights reserved.
