@@ -144,6 +144,19 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
   resonanceField,
   quantumState
 }) => {
+  const [activeTab, setActiveTab] = React.useState('field');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'particles':
+        return <QuantumParticles count={50} resonance={resonanceField} />;
+      case 'core':
+        return <QuantumCore state={quantumState} />;
+      default:
+        return <QuantumField resonance={resonanceField} />;
+    }
+  };
+
   return (
     <Card className="bg-black/40 backdrop-blur-sm border-primary/30 h-full">
       <CardHeader>
@@ -156,7 +169,7 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <Tabs defaultValue="field" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 bg-black/50">
             <TabsTrigger value="field" className="text-xs">
               <Zap className="w-3 h-3 mr-1" />
@@ -181,17 +194,7 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
               <pointLight position={[10, 10, 10]} intensity={1} color={`hsl(${330}, 81%, 60%)`} />
               <pointLight position={[-10, -10, -10]} intensity={0.5} color={`hsl(280, 100%, 50%)`} />
               
-              <TabsContent value="field" className="m-0">
-                <QuantumField resonance={resonanceField} />
-              </TabsContent>
-              
-              <TabsContent value="particles" className="m-0">
-                <QuantumParticles count={50} resonance={resonanceField} />
-              </TabsContent>
-              
-              <TabsContent value="core" className="m-0">
-                <QuantumCore state={quantumState} />
-              </TabsContent>
+              {renderContent()}
               
               <OrbitControls 
                 enablePan={false} 
