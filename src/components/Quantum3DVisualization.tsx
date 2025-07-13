@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, Box, Torus } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Atom, Zap, Orbit } from 'lucide-react';
@@ -62,8 +62,8 @@ const QuantumParticles = ({ count, resonance }: { count: number; resonance: numb
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[0.1, 8, 8]} />
       <meshStandardMaterial 
-        color={new THREE.Color().setHSL((330 + resonance) / 360, 0.81, 0.6)}
-        emissive={new THREE.Color().setHSL((330 + resonance) / 360, 0.81, 0.2)}
+        color={0xff0088}
+        emissive={0x330066}
         transparent
         opacity={0.8}
       />
@@ -84,32 +84,35 @@ const QuantumField = ({ resonance }: { resonance: number }) => {
 
   return (
     <group ref={fieldRef}>
-      <Torus args={[3, 0.1, 16, 100]} position={[0, 0, 0]}>
+      <mesh position={[0, 0, 0]}>
+        <torusGeometry args={[3, 0.1, 16, 100]} />
         <meshStandardMaterial 
-          color={new THREE.Color().setHSL(280 / 360, 1.0, Math.min(1, (50 + resonance * 0.3) / 100))}
-          emissive={new THREE.Color().setHSL(280 / 360, 1.0, Math.min(1, (20 + resonance * 0.1) / 100))}
+          color={0x8800ff}
+          emissive={0x330066}
           transparent
           opacity={0.6}
         />
-      </Torus>
+      </mesh>
       
-      <Torus args={[2, 0.08, 16, 100]} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[2, 0.08, 16, 100]} />
         <meshStandardMaterial 
-          color={new THREE.Color().setHSL(200 / 360, 1.0, Math.min(1, (50 + resonance * 0.3) / 100))}
-          emissive={new THREE.Color().setHSL(200 / 360, 1.0, Math.min(1, (20 + resonance * 0.1) / 100))}
+          color={0x0088ff}
+          emissive={0x003366}
           transparent
           opacity={0.6}
         />
-      </Torus>
+      </mesh>
       
-      <Torus args={[4, 0.12, 16, 100]} position={[0, 0, 0]} rotation={[0, Math.PI / 4, Math.PI / 4]}>
+      <mesh position={[0, 0, 0]} rotation={[0, Math.PI / 4, Math.PI / 4]}>
+        <torusGeometry args={[4, 0.12, 16, 100]} />
         <meshStandardMaterial 
-          color={new THREE.Color().setHSL(330 / 360, 0.81, Math.min(1, (50 + resonance * 0.3) / 100))}
-          emissive={new THREE.Color().setHSL(330 / 360, 0.81, Math.min(1, (20 + resonance * 0.1) / 100))}
+          color={0xff0088}
+          emissive={0x660033}
           transparent
           opacity={0.4}
         />
-      </Torus>
+      </mesh>
     </group>
   );
 };
@@ -128,15 +131,16 @@ const QuantumCore = ({ state }: { state: string }) => {
   });
 
   return (
-    <Sphere ref={coreRef} args={[0.5, 32, 32]}>
+    <mesh ref={coreRef}>
+      <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial 
-        color={new THREE.Color().setHSL(330 / 360, 0.81, 0.6)}
-        emissive={new THREE.Color().setHSL(330 / 360, 0.81, 0.3)}
+        color={0xff0088}
+        emissive={0x660033}
         emissiveIntensity={intensity}
         transparent
         opacity={0.9}
       />
-    </Sphere>
+    </mesh>
   );
 };
 
@@ -191,8 +195,8 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
               style={{ background: 'transparent' }}
             >
               <ambientLight intensity={0.3} />
-              <pointLight position={[10, 10, 10]} intensity={1} color={new THREE.Color().setHSL(330 / 360, 0.81, 0.6)} />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color={new THREE.Color().setHSL(280 / 360, 1.0, 0.5)} />
+              <pointLight position={[10, 10, 10]} intensity={1} color={0xff0088} />
+              <pointLight position={[-10, -10, -10]} intensity={0.5} color={0x8800ff} />
               
               {renderContent()}
               
