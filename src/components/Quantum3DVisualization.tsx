@@ -62,8 +62,8 @@ const QuantumParticles = ({ count, resonance }: { count: number; resonance: numb
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[0.1, 8, 8]} />
       <meshStandardMaterial 
-        color={`hsl(${330 + resonance}, 81%, 60%)`}
-        emissive={`hsl(${330 + resonance}, 81%, 20%)`}
+        color={new THREE.Color().setHSL((330 + resonance) / 360, 0.81, 0.6)}
+        emissive={new THREE.Color().setHSL((330 + resonance) / 360, 0.81, 0.2)}
         transparent
         opacity={0.8}
       />
@@ -86,8 +86,8 @@ const QuantumField = ({ resonance }: { resonance: number }) => {
     <group ref={fieldRef}>
       <Torus args={[3, 0.1, 16, 100]} position={[0, 0, 0]}>
         <meshStandardMaterial 
-          color={`hsl(280, 100%, ${50 + resonance * 0.3}%)`}
-          emissive={`hsl(280, 100%, ${20 + resonance * 0.1}%)`}
+          color={new THREE.Color().setHSL(280 / 360, 1.0, Math.min(1, (50 + resonance * 0.3) / 100))}
+          emissive={new THREE.Color().setHSL(280 / 360, 1.0, Math.min(1, (20 + resonance * 0.1) / 100))}
           transparent
           opacity={0.6}
         />
@@ -95,8 +95,8 @@ const QuantumField = ({ resonance }: { resonance: number }) => {
       
       <Torus args={[2, 0.08, 16, 100]} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <meshStandardMaterial 
-          color={`hsl(200, 100%, ${50 + resonance * 0.3}%)`}
-          emissive={`hsl(200, 100%, ${20 + resonance * 0.1}%)`}
+          color={new THREE.Color().setHSL(200 / 360, 1.0, Math.min(1, (50 + resonance * 0.3) / 100))}
+          emissive={new THREE.Color().setHSL(200 / 360, 1.0, Math.min(1, (20 + resonance * 0.1) / 100))}
           transparent
           opacity={0.6}
         />
@@ -104,8 +104,8 @@ const QuantumField = ({ resonance }: { resonance: number }) => {
       
       <Torus args={[4, 0.12, 16, 100]} position={[0, 0, 0]} rotation={[0, Math.PI / 4, Math.PI / 4]}>
         <meshStandardMaterial 
-          color={`hsl(${330}, 81%, ${50 + resonance * 0.3}%)`}
-          emissive={`hsl(${330}, 81%, ${20 + resonance * 0.1}%)`}
+          color={new THREE.Color().setHSL(330 / 360, 0.81, Math.min(1, (50 + resonance * 0.3) / 100))}
+          emissive={new THREE.Color().setHSL(330 / 360, 0.81, Math.min(1, (20 + resonance * 0.1) / 100))}
           transparent
           opacity={0.4}
         />
@@ -130,8 +130,8 @@ const QuantumCore = ({ state }: { state: string }) => {
   return (
     <Sphere ref={coreRef} args={[0.5, 32, 32]}>
       <meshStandardMaterial 
-        color={`hsl(${330}, 81%, 60%)`}
-        emissive={`hsl(${330}, 81%, 30%)`}
+        color={new THREE.Color().setHSL(330 / 360, 0.81, 0.6)}
+        emissive={new THREE.Color().setHSL(330 / 360, 0.81, 0.3)}
         emissiveIntensity={intensity}
         transparent
         opacity={0.9}
@@ -191,8 +191,8 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
               style={{ background: 'transparent' }}
             >
               <ambientLight intensity={0.3} />
-              <pointLight position={[10, 10, 10]} intensity={1} color={`hsl(${330}, 81%, 60%)`} />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color={`hsl(280, 100%, 50%)`} />
+              <pointLight position={[10, 10, 10]} intensity={1} color={new THREE.Color().setHSL(330 / 360, 0.81, 0.6)} />
+              <pointLight position={[-10, -10, -10]} intensity={0.5} color={new THREE.Color().setHSL(280 / 360, 1.0, 0.5)} />
               
               {renderContent()}
               
