@@ -1,8 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Atom, Zap, Orbit } from 'lucide-react';
 import * as THREE from 'three';
 
@@ -11,134 +11,82 @@ interface Quantum3DVisualizationProps {
   quantumState: string;
 }
 
-const QuantumParticles = ({ count, resonance }: { count: number; resonance: number }) => {
+const QuantumParticles = ({ resonance }: { resonance: number }) => {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-
-  const particles = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      temp.push({
-        position: [
-          (Math.random() - 0.5) * 10,
-          (Math.random() - 0.5) * 10,
-          (Math.random() - 0.5) * 10
-        ],
-        rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI],
-        speed: Math.random() * 0.02 + 0.01
-      });
-    }
-    return temp;
-  }, [count]);
+  const dummy = new THREE.Object3D();
 
   useFrame((state) => {
     if (!meshRef.current) return;
     
-    particles.forEach((particle, i) => {
-      const time = state.clock.elapsedTime;
-      const resonanceMultiplier = resonance / 100;
-      
+    const time = state.clock.elapsedTime;
+    const count = 20;
+    
+    for (let i = 0; i < count; i++) {
       dummy.position.set(
-        particle.position[0] + Math.sin(time * particle.speed + i) * resonanceMultiplier,
-        particle.position[1] + Math.cos(time * particle.speed + i) * resonanceMultiplier,
-        particle.position[2] + Math.sin(time * particle.speed * 0.5 + i) * resonanceMultiplier
+        Math.sin(time + i) * 3,
+        Math.cos(time + i * 0.5) * 2,
+        Math.sin(time * 0.5 + i) * 3
       );
-      
-      dummy.rotation.set(
-        particle.rotation[0] + time * particle.speed,
-        particle.rotation[1] + time * particle.speed * 0.5,
-        particle.rotation[2] + time * particle.speed * 0.3
-      );
-      
-      dummy.scale.setScalar(0.1 + resonanceMultiplier * 0.05);
+      dummy.rotation.set(time + i, time * 0.5 + i, time * 0.3 + i);
+      dummy.scale.setScalar(0.1 + resonance * 0.01);
       dummy.updateMatrix();
-      meshRef.current!.setMatrixAt(i, dummy.matrix);
-    });
+      meshRef.current.setMatrixAt(i, dummy.matrix);
+    }
     
     meshRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <sphereGeometry args={[0.1, 8, 8]} />
-      <meshStandardMaterial 
-        color={0xff0088}
-        emissive={0x330066}
-        transparent
-        opacity={0.8}
-      />
+    <instancedMesh ref={meshRef} args={[undefined, undefined, 20]}>
+      <sphereGeometry args={[0.1]} />
+      <meshStandardMaterial color="#ff0088" emissive="#330066" />
     </instancedMesh>
   );
 };
 
 const QuantumField = ({ resonance }: { resonance: number }) => {
-  const fieldRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (!fieldRef.current) return;
-    
-    const time = state.clock.elapsedTime;
-    fieldRef.current.rotation.y = time * 0.1;
-    fieldRef.current.rotation.x = Math.sin(time * 0.05) * 0.2;
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
   });
 
   return (
-    <group ref={fieldRef}>
-      <mesh position={[0, 0, 0]}>
+    <group ref={groupRef}>
+      <mesh>
         <torusGeometry args={[3, 0.1, 16, 100]} />
-        <meshStandardMaterial 
-          color={0x8800ff}
-          emissive={0x330066}
-          transparent
-          opacity={0.6}
-        />
+        <meshStandardMaterial color="#8800ff" emissive="#330066" transparent opacity={0.6} />
       </mesh>
-      
-      <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[2, 0.08, 16, 100]} />
-        <meshStandardMaterial 
-          color={0x0088ff}
-          emissive={0x003366}
-          transparent
-          opacity={0.6}
-        />
-      </mesh>
-      
-      <mesh position={[0, 0, 0]} rotation={[0, Math.PI / 4, Math.PI / 4]}>
-        <torusGeometry args={[4, 0.12, 16, 100]} />
-        <meshStandardMaterial 
-          color={0xff0088}
-          emissive={0x660033}
-          transparent
-          opacity={0.4}
-        />
+        <meshStandardMaterial color="#0088ff" emissive="#003366" transparent opacity={0.6} />
       </mesh>
     </group>
   );
 };
 
 const QuantumCore = ({ state }: { state: string }) => {
-  const coreRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const intensity = state === 'Entangled' ? 1.5 : state === 'Superposition' ? 1.2 : 0.8;
 
   useFrame((frameState) => {
-    if (!coreRef.current) return;
-    
+    if (!meshRef.current) return;
     const time = frameState.clock.elapsedTime;
-    coreRef.current.rotation.x = time * 0.5;
-    coreRef.current.rotation.y = time * 0.3;
-    coreRef.current.scale.setScalar(intensity + Math.sin(time * 2) * 0.1);
+    meshRef.current.rotation.x = time * 0.5;
+    meshRef.current.rotation.y = time * 0.3;
+    meshRef.current.scale.setScalar(intensity + Math.sin(time * 2) * 0.1);
   });
 
   return (
-    <mesh ref={coreRef}>
+    <mesh ref={meshRef}>
       <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial 
-        color={0xff0088}
-        emissive={0x660033}
+        color="#ff0088" 
+        emissive="#660033" 
         emissiveIntensity={intensity}
-        transparent
-        opacity={0.9}
+        transparent 
+        opacity={0.9} 
       />
     </mesh>
   );
@@ -148,12 +96,12 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
   resonanceField,
   quantumState
 }) => {
-  const [activeTab, setActiveTab] = React.useState('field');
+  const [activeTab, setActiveTab] = useState('field');
 
   const renderContent = () => {
     switch (activeTab) {
       case 'particles':
-        return <QuantumParticles count={50} resonance={resonanceField} />;
+        return <QuantumParticles resonance={resonanceField} />;
       case 'core':
         return <QuantumCore state={quantumState} />;
       default:
@@ -190,13 +138,10 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
           </TabsList>
 
           <div className="h-64 bg-black/20">
-            <Canvas
-              camera={{ position: [8, 8, 8], fov: 60 }}
-              style={{ background: 'transparent' }}
-            >
+            <Canvas camera={{ position: [8, 8, 8], fov: 60 }}>
               <ambientLight intensity={0.3} />
-              <pointLight position={[10, 10, 10]} intensity={1} color={0xff0088} />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color={0x8800ff} />
+              <pointLight position={[10, 10, 10]} intensity={1} color="#ff0088" />
+              <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8800ff" />
               
               {renderContent()}
               
