@@ -132,6 +132,24 @@ export default {
 				'shimmer': {
 					'0%': { transform: 'translateX(-100%)' },
 					'100%': { transform: 'translateX(100%)' }
+				},
+				'quantum-float': {
+					'0%, 100%': { 
+						transform: 'translateY(0px) translateX(0px) scale(1)',
+						opacity: '0.6'
+					},
+					'25%': { 
+						transform: 'translateY(-15px) translateX(10px) scale(1.1)',
+						opacity: '0.8'
+					},
+					'50%': { 
+						transform: 'translateY(-8px) translateX(-5px) scale(0.9)',
+						opacity: '1'
+					},
+					'75%': { 
+						transform: 'translateY(-20px) translateX(8px) scale(1.05)',
+						opacity: '0.7'
+					}
 				}
 			},
 			animation: {
@@ -140,6 +158,7 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'glow': 'glow 2s ease-in-out infinite',
 				'shimmer': 'shimmer 2s linear infinite',
+				'quantum-float': 'quantum-float 4s ease-in-out infinite',
 			}
 		}
 	},

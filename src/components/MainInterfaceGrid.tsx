@@ -16,6 +16,7 @@ import ConsciousnessMapper from '@/components/ConsciousnessMapper';
 import TemporalManipulator from '@/components/TemporalManipulator';
 import WormholePhysicsSimulator from '@/components/WormholePhysicsSimulator';
 import Quantum3DVisualization from '@/components/Quantum3DVisualization';
+import AdvancedQuantumField from '@/components/AdvancedQuantumField';
 
 interface MainInterfaceGridProps {
   // Input and processing props
@@ -75,9 +76,10 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
       </div>
 
       {/* Row 2: Enhanced Visualization Components */}
-      <div className="col-span-1">
-        <QuantumFieldVisualizer
+      <div className="col-span-1 sm:col-span-2">
+        <AdvancedQuantumField
           resonanceField={resonanceField}
+          quantumState={quantumState}
           ontologicalSeeds={ontologicalSeeds}
         />
       </div>
@@ -86,6 +88,13 @@ const MainInterfaceGrid: React.FC<MainInterfaceGridProps> = ({
         <Quantum3DVisualization
           resonanceField={resonanceField}
           quantumState={quantumState}
+        />
+      </div>
+
+      <div className="col-span-1">
+        <QuantumFieldVisualizer
+          resonanceField={resonanceField}
+          ontologicalSeeds={ontologicalSeeds}
         />
       </div>
 
