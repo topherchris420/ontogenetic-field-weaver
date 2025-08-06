@@ -160,7 +160,6 @@ const AdvancedQuantumField: React.FC<AdvancedQuantumFieldProps> = ({
             if (Math.random() < 0.001) { // Quantum tunneling
               particle.x = Math.random() * actualWidth;
               particle.y = Math.random() * actualHeight;
-              toast.info("Quantum tunneling detected!");
             }
             break;
             
