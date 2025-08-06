@@ -19,16 +19,16 @@ const QuantumParticles = ({ resonance }: { resonance: number }) => {
     if (!meshRef.current) return;
     
     const time = state.clock.elapsedTime;
-    const count = 20;
+    const count = 50; // Increased particle count
     
     for (let i = 0; i < count; i++) {
       dummy.position.set(
-        Math.sin(time + i) * 3,
-        Math.cos(time + i * 0.5) * 2,
-        Math.sin(time * 0.5 + i) * 3
+        Math.sin(time * 0.5 + i * 0.2) * 4,
+        Math.cos(time * 0.3 + i * 0.15) * 3,
+        Math.sin(time * 0.4 + i * 0.1) * 4
       );
       dummy.rotation.set(time + i, time * 0.5 + i, time * 0.3 + i);
-      dummy.scale.setScalar(0.1 + resonance * 0.01);
+      dummy.scale.setScalar(0.15 + resonance * 0.015); // Larger base size
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
     }
@@ -37,9 +37,15 @@ const QuantumParticles = ({ resonance }: { resonance: number }) => {
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, 20]}>
-      <sphereGeometry args={[0.1]} />
-      <meshStandardMaterial color="#ff0088" emissive="#330066" />
+    <instancedMesh ref={meshRef} args={[undefined, undefined, 50]}>
+      <sphereGeometry args={[0.2]} />
+      <meshStandardMaterial 
+        color="#ff0088" 
+        emissive="#ff0088" 
+        emissiveIntensity={0.5}
+        transparent
+        opacity={0.8}
+      />
     </instancedMesh>
   );
 };
