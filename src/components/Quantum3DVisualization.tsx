@@ -19,16 +19,21 @@ const QuantumParticles = ({ resonance }: { resonance: number }) => {
     if (!meshRef.current) return;
     
     const time = state.clock.elapsedTime;
-    const count = 50; // Increased particle count
+    const count = 30; // Reduced for better performance
     
     for (let i = 0; i < count; i++) {
+      // Position particles in a more visible arrangement
+      const angle = (i / count) * Math.PI * 2;
+      const radius = 2 + Math.sin(time + i * 0.1) * 1;
+      
       dummy.position.set(
-        Math.sin(time * 0.5 + i * 0.2) * 4,
-        Math.cos(time * 0.3 + i * 0.15) * 3,
-        Math.sin(time * 0.4 + i * 0.1) * 4
+        Math.cos(angle) * radius + Math.sin(time * 0.5 + i * 0.1) * 0.5,
+        Math.sin(time + i * 0.2) * 2,
+        Math.sin(angle) * radius + Math.cos(time * 0.3 + i * 0.1) * 0.5
       );
+      
       dummy.rotation.set(time + i, time * 0.5 + i, time * 0.3 + i);
-      dummy.scale.setScalar(0.15 + resonance * 0.015); // Larger base size
+      dummy.scale.setScalar(0.2 + resonance * 0.01 + Math.sin(time * 2 + i) * 0.1);
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
     }
@@ -37,16 +42,34 @@ const QuantumParticles = ({ resonance }: { resonance: number }) => {
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, 50]}>
-      <sphereGeometry args={[0.2]} />
-      <meshStandardMaterial 
-        color="#ff0088" 
-        emissive="#ff0088" 
-        emissiveIntensity={0.5}
-        transparent
-        opacity={0.8}
-      />
-    </instancedMesh>
+    <>
+      <instancedMesh ref={meshRef} args={[undefined, undefined, 30]}>
+        <sphereGeometry args={[0.15, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ff0088" 
+          emissive="#ff0088" 
+          emissiveIntensity={0.8}
+          roughness={0.1}
+          metalness={0.5}
+        />
+      </instancedMesh>
+      
+      {/* Add some connecting lines for visibility */}
+      <mesh>
+        <ringGeometry args={[2, 2.1, 32]} />
+        <meshBasicMaterial color="#ff0088" transparent opacity={0.3} />
+      </mesh>
+      
+      {/* Central reference sphere */}
+      <mesh>
+        <sphereGeometry args={[0.1, 16, 16]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          emissive="#ffffff" 
+          emissiveIntensity={1}
+        />
+      </mesh>
+    </>
   );
 };
 
@@ -144,10 +167,17 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
           </TabsList>
 
           <div className="h-64 bg-black/20">
-            <Canvas camera={{ position: [8, 8, 8], fov: 60 }}>
-              <ambientLight intensity={0.3} />
-              <pointLight position={[10, 10, 10]} intensity={1} color="#ff0088" />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8800ff" />
+            <Canvas 
+              camera={{ position: [8, 8, 8], fov: 60 }}
+              gl={{ antialias: true, alpha: true }}
+              onCreated={({ gl }) => {
+                gl.setClearColor('#000000', 0.1);
+              }}
+            >
+              <ambientLight intensity={0.5} />
+              <pointLight position={[10, 10, 10]} intensity={1.5} color="#ff0088" />
+              <pointLight position={[-10, -10, -10]} intensity={0.8} color="#8800ff" />
+              <directionalLight position={[0, 10, 5]} intensity={0.5} color="#ffffff" />
               
               {renderContent()}
               
@@ -155,7 +185,7 @@ const Quantum3DVisualization: React.FC<Quantum3DVisualizationProps> = ({
                 enablePan={false} 
                 enableZoom={true} 
                 maxDistance={20} 
-                minDistance={5}
+                minDistance={3}
                 autoRotate
                 autoRotateSpeed={0.5}
               />
